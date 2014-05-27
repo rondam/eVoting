@@ -67,6 +67,18 @@ class DatabaseHandler {
 		return $elections;
 	}
 	
+	function getNextElections() {
+		$res = $this->db->query('SELECT id, name, date FROM election WHERE date > NOW() ORDER BY DATE ASC');
+		if ($res != null) {
+			$elections = array();
+			while ($election = $res->fetch_assoc()) {
+				$elections[] = $election;
+			}
+			return $elections;
+		}
+		return null;
+	}
+	
 	function newElection($name, $date) {
 		$dateInfo = date_parse_from_format('d/m/Y', $date);
 		$isoDate = $dateInfo['year'] . '-' . $dateInfo['month'] . '-' . $dateInfo['day'];
@@ -76,9 +88,9 @@ class DatabaseHandler {
 		}
 	}
 	
-	function getCandidates($election) {
+	function getCandidates($election, $stratum) {
 		$res = $this->db->query('SELECT person, election, stratum FROM candidate ' .
-			'WHERE election="' . $election . '"');
+			'WHERE election=' . $election . ' AND stratum=' . $stratum);
 		$candidates = array();
 		while ($candidate = $res->fetch_assoc()) {
 			$candidates[] = $candidate;
@@ -97,6 +109,16 @@ class DatabaseHandler {
 		$res = $this->db->query('SELECT person, election, stratum, hasVoted, role '
 				. 'FROM voter WHERE person = "' . $person . '" AND election = ' . $election);
 		return $res->fetch_assoc();
+	}
+	
+	function getVoters($election) {
+		$res = $this->db->query('SELECT person, election, stratum, hasVoted, role '
+				. 'FROM voter WHERE election = ' . $election);
+		$voters = array();
+		while ($voter = $res->fetch_assoc()) {
+			$voters[] = $voter;
+		}
+		return $voters;
 	}
 	
 	function newVoter($person, $election, $stratum, $role) {
