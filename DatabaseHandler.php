@@ -67,6 +67,11 @@ class DatabaseHandler {
 		return $elections;
 	}
 	
+	function getElection($election) {
+		$res = $this->db->query('SELECT id, name, date FROM election WHERE id = ' . $election);
+		return $res->fetch_assoc();
+	}
+	
 	function getNextElections() {
 		$res = $this->db->query('SELECT id, name, date FROM election WHERE date > NOW() ORDER BY DATE ASC');
 		if ($res != null) {
@@ -107,7 +112,7 @@ class DatabaseHandler {
 	
 	function getVoter($person, $election) {
 		$res = $this->db->query('SELECT person, election, stratum, hasVoted, role '
-				. 'FROM voter WHERE person = "' . $person . '" AND election = ' . $election);
+				. 'FROM voter WHERE person ="' . $person . '" AND election = ' . $election);
 		return $res->fetch_assoc();
 	}
 	

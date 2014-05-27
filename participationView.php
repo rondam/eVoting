@@ -7,7 +7,7 @@
 	<h1>Votación electrónica</h1>
 	<h3>Participación</h3>
 	<?php 
-		if ($elections == null) {
+		if ($election == null || (!$currentElection && !$afterElection)) {
 			echo '<p>No hay elecciones activas.</p>';
 		} else {
 			foreach ($strata as $stratum) {
@@ -20,7 +20,7 @@
 		}
 		echo '<p><b>Total:</b> ';
 		echo $totalVotes == 0 ? 0 : round(100 * $totalVotes / $totalVoters, 2);
-		echo ' % de ' . $totalVotes . '</p>';
+		echo ' % de ' . $totalVoters . '</p>';
 			
 	?>
 	<a href="census.php?dni=<?php echo $dni ?>">Volver</a>

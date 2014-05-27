@@ -1,12 +1,11 @@
 <?php
 
-if (!isset($_POST['dni'])) {
+require_once('common.php');
+
+if (!isset($_GET['dni'])) {
 	require('indexView.php');
-} else {
-	require("DatabaseHandler.php");
-	$dbHandler = new DatabaseHandler();
-	
-	$dni = filter_var($_POST['dni'], FILTER_SANITIZE_SPECIAL_CHARS);
+} else {	
+	$dni = filter_var($_GET['dni'], FILTER_SANITIZE_SPECIAL_CHARS);
 	$person = $dbHandler->getPerson($dni);
 	if ($person == null) {
 		die('DNI no encontrado. <a href="index.php">Volver</a>');

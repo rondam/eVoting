@@ -9,7 +9,7 @@
 	<p><b>DNI: </b> <?php echo $dni ?></p>
 	<p><b>Nombre: </b> <?php echo $person['surname'] . ', ' . $person['name'] ?></p>
 	<?php 
-		if($voter != null) {
+		if($voter != null && $currentElection) {
 			echo '<p><b>Rol:</b> ';
 			if ($voter['role'] == 'voter') echo 'votante';
 			elseif ($voter['role'] == 'inspector') echo 'interventor';
@@ -19,11 +19,18 @@
 			if ($voter['hasVoted'] == true) {
 				echo '<p>Usted ya ha votado.</p>';
 			} else {
-				echo '<p><a href="vote.php?dni=' . $voter['person'] . '">Votar</a></p>';
+				echo '<h3><a href="vote.php?dni=' . $voter['person'] . '">Votar</a></h3>';
 			}
 		}
 	?>
-	<p><a href="participation.php?dni=<?php echo $dni ?>">Ver participación</a></p>
+	<?php 
+		if ($currentElection || $afterElection) {
+			echo '<p><a href="participation.php?dni=' . $dni . '">Ver participación</a></p>';
+		}
+		if ($afterElection && $voter['role'] === 'commitee') {
+			echo '<p><a href="results.php?dni=' . $dni . '">Ver resultados</a></p>';
+		}
+	?>
 	<p><a href="index.php">Cerrar sesión</a></p>
 </body>
 </html>

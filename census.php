@@ -1,22 +1,10 @@
 <?php
 
-if (!isset($dni) && !isset($_GET['dni'])) {
-	die();
-} elseif (!isset($dni)) {
-	require("DatabaseHandler.php");
-	$dbHandler = new DatabaseHandler();
-	$dni = filter_var($_GET['dni'], FILTER_SANITIZE_SPECIAL_CHARS);
-	$person = $dbHandler->getPerson($dni);
-	if ($person == null) {
-		die();
-	}
-}
+require_once('common.php');
+require('checkUser.php');
 
-$elections = $dbHandler->getNextElections();
-$voter = null;
-if ($elections !== null) {
-	$election = $elections[0];
-	$voter = $dbHandler->getVoter($dni, $election['id']);
+$voter = $dbHandler->getVoter($dni, CURRENT_ELECTION);
+if ($currentElection) {
 	$strata = $dbHandler->getStrata();
 	foreach ($strata as $stratum) {
 		if ($stratum['id'] == $voter['stratum']) {

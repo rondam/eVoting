@@ -6,7 +6,7 @@
 <body>
 	<h1>Votación electrónica</h1>
 	<p>Por favor, inicie sesión.</p>
-	<form action="index.php" method="post">
+	<form action="index.php" method="get">
 		<label for="dni">DNI:</label>
 		<input type="text" name="dni" maxlength="9">
 		<br>
