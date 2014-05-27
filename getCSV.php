@@ -12,7 +12,7 @@ $dbHandler = new DatabaseHandler();
         
          if ($row > 1){
             //INsertamos eleccion
-            $dbHandler->newElection($data[0]);  
+            $dbHandler->newElection($data[0],$data[1]);  
          }
       $row++;
       }
@@ -53,26 +53,31 @@ $dbHandler = new DatabaseHandler();
    if (($handle = fopen("persona.csv", "r")) !== FALSE) {
       while (($data = fgetcsv($handle, 100, ",")) !== FALSE) {
          $num = count($data);
-         
-         if ($row > 1){     
-
-            //Insertamos persona (DNI, nombre, apellidos)
-            $dbHandler->newPerson($data[0],$data[1],$data[2]);  
- 
-            //INsertamos Candidato (DNI, id de la eleccion, id del estamento)
-            $dbHandler->newCandidate($data[0],$idelection[0]['id'],$strata[$data[4]]);
-
-
-	    //INsertamos Votante (DNI, id de la eleccion, id del estamento, rol)
+         if ($row > 1){
+            $dbHandler->newPerson($data[0],$data[1],$data[2]);
             $dbHandler->newVoter($data[0],$idelection[0]['id'],$strata[$data[4]],$data[3]);
-
          }
-        
        $row++;
-      
       }
    fclose($handle);
    }
+
+   $row = 1;
+   if (($handle = fopen("candidato.csv", "r")) !== FALSE) {
+   	while (($data = fgetcsv($handle, 100, ",")) !== FALSE) {
+   		$num = count($data);
+   		if ($row > 1){
+   			$voter = $dbHandler->getVoter($data[0], $idelection[0]['id']);
+   			if ($voter != null) {
+   				$dbHandler->newCandidate($data[0],$idelection[0]['id'],$voter['stratum']);
+   			}
+   		}
+   		$row++;
+   	}
+   	fclose($handle);
+   }
+   
+   echo 'Finished loading data.';
 
 
 ?>

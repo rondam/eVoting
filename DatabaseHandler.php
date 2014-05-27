@@ -59,7 +59,7 @@ class DatabaseHandler {
 	}
 	
 	function getElections() {
-		$res = $this->db->query('SELECT id, name FROM election');
+		$res = $this->db->query('SELECT id, name, date FROM election');
 		$elections = array();
 		while ($election = $res->fetch_assoc()) {
 			$elections[] = $election;
@@ -67,8 +67,11 @@ class DatabaseHandler {
 		return $elections;
 	}
 	
-	function newElection($name) {
-		if (!$this->db->query('INSERT INTO election(name) VALUES ("' . $name . '")')) {
+	function newElection($name, $date) {
+		$dateInfo = date_parse_from_format('d/m/Y', $date);
+		$isoDate = $dateInfo['year'] . '-' . $dateInfo['month'] . '-' . $dateInfo['day'];
+		if (!$this->db->query('INSERT INTO election(name, date) VALUES ("' .
+				$name . '", "' . $isoDate . '")')) {
 			die("Failed to create election: (" . $this->db->errno . ") " . $this->db->error);
 		}
 	}
@@ -90,9 +93,9 @@ class DatabaseHandler {
 		}
 	}
 	
-	function getVoter($person) {
+	function getVoter($person, $election) {
 		$res = $this->db->query('SELECT person, election, stratum, hasVoted, role '
-				. 'FROM voter WHERE person = "' . $person . '"');
+				. 'FROM voter WHERE person = "' . $person . '" AND election = ' . $election);
 		return $res->fetch_assoc();
 	}
 	
@@ -110,14 +113,16 @@ class DatabaseHandler {
 		}
 	}
 	
-	function getVotes($candidate) {
-		$res = $this->db->query('SELECT COUNT(*) FROM vote WHERE candidate = "' . $candidate . '"');
+	function getVotes($person, $election) {
+		$res = $this->db->query('SELECT COUNT(*) FROM vote WHERE person = "' . $person .
+				'" AND election = ' . $election);
 		$row = $res->fetch_assoc();
 		return $row['COUNT(*)'];
 	}
 	
-	function newVote($candidate) {
-	if (!$this->db->query('INSERT INTO vote(candidate) VALUES ("' . $candidate . '")')) {
+	function newVote($person, $election) {
+	if (!$this->db->query('INSERT INTO vote(person, election) VALUES ("' .
+			$person . '", ' . $election . ')')) {
 			die("Failed to create vote: (" . $this->db->errno . ") " . $this->db->error);
 		}
 	}
