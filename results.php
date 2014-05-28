@@ -1,10 +1,10 @@
 <?php
 require ('common.php');
-require ('checkUser.php');
+//require ('checkUser.php');
 
 if ($afterElection) {
 	$election = $dbHandler->getElection ( CURRENT_ELECTION );
-	$voter = $dbHandler->getVoter ( $person ['id'], CURRENT_ELECTION );
+	//$voter = $dbHandler->getVoter ( $person ['id'], CURRENT_ELECTION );
 	
 	if ($election == null ) {
 		die();

@@ -19,3 +19,7 @@ if (!isset($_POST['dni'])) {
 		require('census.php');
 	}
 }
+
+if ($afterElection) {
+   echo '<p><a href="results.php">Ver resultados</a></p>';
+}
