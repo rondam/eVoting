@@ -31,7 +31,7 @@ class DatabaseHandler {
 	}
 	
 	function getPerson($id) {
-		$res = $this->db->query('SELECT id, name, surname FROM person ' .
+		$res = $this->db->query('SELECT id, name, surname, password FROM person ' .
 				'WHERE id = "' . $id . '"');
 		return $res->fetch_assoc();
 	}
