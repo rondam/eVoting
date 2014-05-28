@@ -23,6 +23,6 @@
 		echo ' % de ' . $totalVoters . '</p>';
 			
 	?>
-	<a href="census.php?dni=<?php echo $dni ?>">Volver</a>
+	<a href="census.php">Volver</a>
 </body>
 </html>

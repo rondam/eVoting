@@ -6,7 +6,7 @@
 <body>
 	<h1>Votación electrónica</h1>
 	<h3>Votar</h3>
-	<form action="vote.php?dni=<?php echo $dni ?>" method="post">
+	<form action="vote.php" method="post">
 	<input type="hidden" name="voting" value="voting">
 	<?php 
 		foreach ($candidateList as $candidate) {

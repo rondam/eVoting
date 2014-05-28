@@ -9,7 +9,7 @@
 	<p><b>DNI: </b> <?php echo $dni ?></p>
 	<p><b>Nombre: </b> <?php echo $person['surname'] . ', ' . $person['name'] ?></p>
 	<?php 
-		if($voter != null && $currentElection) {
+		if($voter != null) {
 			echo '<p><b>Rol:</b> ';
 			if ($voter['role'] == 'voter') echo 'votante';
 			elseif ($voter['role'] == 'inspector') echo 'interventor';
@@ -19,16 +19,19 @@
 			if ($voter['hasVoted'] == true) {
 				echo '<p>Usted ya ha votado.</p>';
 			} else {
-				echo '<h3><a href="vote.php?dni=' . $voter['person'] . '">Votar</a></h3>';
+				echo '<h3><a href="vote.php">Votar</a></h3>';
 			}
 		}
 	?>
 	<?php 
 		if ($currentElection || $afterElection) {
-			echo '<p><a href="participation.php?dni=' . $dni . '">Ver participación</a></p>';
+			echo '<p><a href="participation.php">Ver participación</a></p>';
 		}
-		if ($afterElection && $voter['role'] === 'commitee') {
-			echo '<p><a href="results.php?dni=' . $dni . '">Ver resultados</a></p>';
+		if ($afterElection && ($voter['role'] === 'commitee' || $dni === PRESIDENT)) {
+			echo '<p><a href="results.php">Ver resultados</a></p>';
+		}
+		if ($dni === PRESIDENT) {
+			echo '<p><a href="editElection.php">Editar elección</a></p>';
 		}
 	?>
 	<p><a href="index.php">Cerrar sesión</a></p>

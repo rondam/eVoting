@@ -6,6 +6,6 @@
 <body>
 	<h1>Votación electrónica</h1>
 	<h3>Su voto ha sido registrado satisfactoriamente</h3>
-	<p><a href="census.php?dni=<?php echo $dni ?>">Volver</a></p>
+	<p><a href="census.php">Volver</a></p>
 </body>
 </html>

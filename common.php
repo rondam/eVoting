@@ -2,21 +2,20 @@
 
 define('CURRENT_ELECTION', 1);
 define('PRESIDENT', '44738593M');
-define('START_TIME', '09:00');
-define('END_TIME', '22:00');
 
 require('DatabaseHandler.php');
 
 $dbHandler = new DatabaseHandler();
 function checkElection($dbHandler) {
+	$current = $dbHandler->getCurrentElection();
 	$election = $dbHandler->getElection(CURRENT_ELECTION);
 	if ($election == null) {
 		return false;
 	}
 	$date = $election['date'];
 	$tz = new DateTimeZone('Atlantic/Canary');
-	$start = new DateTime($date . ' ' . START_TIME, $tz);
-	$end = new DateTime($date . ' ' . END_TIME, $tz);
+	$start = new DateTime($current['start'], $tz);
+	$end = new DateTime($current['end'], $tz);
 	$now = new DateTime('now', $tz);
 	if ($now < $start) {
 		return 'before';

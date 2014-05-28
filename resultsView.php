@@ -19,6 +19,6 @@
 			}
 		}			
 	?>
-	<p><a href="census.php?dni=<?php echo $dni ?>">Volver</a></p>
+	<p><a href="census.php">Volver</a></p>
 </body>
 </html>

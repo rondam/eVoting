@@ -1,5 +1,7 @@
 Options -Indexes
 
+DirectoryIndex index.php
+
 Order deny,allow
 Deny from all
 <Files "index.php">
@@ -12,5 +14,11 @@ Deny from all
 	Allow from all
 </Files>
 <Files "vote.php">
+	Allow from all
+</Files>
+<Files "results.php">
+	Allow from all
+</Files>
+<Files "editElection.php">
 	Allow from all
 </Files>

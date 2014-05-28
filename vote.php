@@ -10,7 +10,7 @@ if (! $currentElection) {
 
 $voter = $dbHandler->getVoter ( $dni, CURRENT_ELECTION );
 if ($voter ['hasVoted'] == true) {
-	die ( 'Usted ya ha votado. <a href="census.php?dni=' . $person ['id'] . '">Volver</a>' );
+	die ( 'Usted ya ha votado. <a href="census.php">Volver</a>' );
 }
 
 $strata = $dbHandler->getStrata ();
@@ -34,7 +34,7 @@ if (! isset ( $_POST ['voting'] )) { // Show vote form
 	// Verify INSIDE the transaction that the user hasn't voted.
 	if ($voter ['hasVoted'] == true) {
 		$dbHandler->rollback ();
-		die ( 'Usted ya ha votado. <a href="census.php?dni=' . $person ['id'] . '">Volver</a>' );
+		die ( 'Usted ya ha votado. <a href="census.php">Volver</a>' );
 	}
 	$dbHandler->hasVoted ( $person ['id'], CURRENT_ELECTION );
 	foreach ( $candidates as $candidate ) {
