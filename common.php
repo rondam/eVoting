@@ -1,6 +1,7 @@
 <?php
 
 define('CURRENT_ELECTION', 1);
+define('PRESIDENT', '44738593M');
 define('START_TIME', '09:00');
 define('END_TIME', '22:00');
 

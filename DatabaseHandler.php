@@ -36,9 +36,9 @@ class DatabaseHandler {
 		return $res->fetch_assoc();
 	}
 	
-	function newPerson($id, $name, $surname) {
-		if (!$this->db->query('INSERT INTO person(id, name, surname) VALUES (' .
-				"\"{$id}\", \"{$name}\", \"{$surname}\")")) {
+	function newPerson($id, $name, $surname, $password) {
+		if (!$this->db->query('INSERT INTO person(id, name, surname, password) VALUES (' .
+				"\"{$id}\", \"{$name}\", \"{$surname}\", \"{$password}\")")) {
 			die("Failed to create person: (" . $this->db->errno . ") " . $this->db->error);
 		}
 	}
@@ -151,6 +151,44 @@ class DatabaseHandler {
 	if (!$this->db->query('INSERT INTO vote(person, election) VALUES ("' .
 			$person . '", ' . $election . ')')) {
 			die("Failed to create vote: (" . $this->db->errno . ") " . $this->db->error);
+		}
+	}
+	
+	function getCurrentElection() {
+		$res = $this->db->query('SELECT * FROM currentElection');
+		$row = $res->fetch_assoc();
+		$chosen = explode(',', $row['chosen']);
+		$strata = array();
+		foreach ($chosen as $pair) {
+			$temp = explode(':', $pair);
+			$strata[$temp[0]] = $temp[1];
+		}
+		$row['chosen'] = $strata;
+		return $row;
+	}
+	
+	function setCurrentElection($start, $end, $strata) {
+		$election = $this->getElection(CURRENT_ELECTION);
+		if ($election == null) {
+			return false;
+		}
+		$startDate = $election['date'] . ' ' . $start;
+		$endDate = $election['date'] . ' ' . $end;
+		$stratumPeople = '';
+		foreach ($strata as $stratum => $people) {
+			if ($stratumPeople !== '') {
+				$stratumPeople .= ',';
+			}
+			$stratumPeople .= $stratum . ':' . $people;
+		}
+		if (!$this->db->query('DELETE FROM currentElection')) {
+			die('Failed to remove current election');
+		}
+		$query = 'INSERT INTO currentElection(forceUnique, electionId, start, end, chosen) ' .
+				'VALUES("id", ' . CURRENT_ELECTION . ', "' . $startDate .
+				'",  "' . $endDate . '", "' . $stratumPeople . '")';
+		if (!$this->db->query($query)) {
+			die('Failed to modify current election: (' . $this->db->errno . ") " . $this->db->error);
 		}
 	}
 }

@@ -1,13 +1,13 @@
-DNI,nombre,apellidos,rol,estamento
-44738593M,Marina,Ronda Marrero,commitee,Estudiante
-46657856D,Rubén,Ramírez Trujillo,voter,Estudiante
-34534535P,Ana,Vega De León,voter,Estudiante
-34565643D,Víctor,Rodríguez Fuentes,inspector,Estudiante
-23986799N,Elena,Suárez Costa,voter,Profesor
-12432434Z,Marc,Roig Montes,voter,Profesor
-19875123D,María de la O,Núñez Almirante,inspector,Profesor
-45654645S,Francisco,Padrón Ramírez,commitee,Profesor
-34453465A,Isabel,Del Pino Álvarez,commitee,PAS
-26784234R,Jesús Miguel,Perales Lozano,voter,PAS
-56345345Q,Lucas,Reyes de Castilla,voter,PAS
-43454543D,Leonor,Pérez Rodríguez,inspector,PAS
+DNI,nombre,apellidos,rol,estamento,contraseña
+44738593M,Marina,Ronda Marrero,commitee,Estudiante,$2y$10$O3wm20NyqEeCLLD3g9LmF.J7QboUGre0l2f9hphvf6.xLWys6rbN2
+46657856D,Rubén,Ramírez Trujillo,voter,Estudiante,$2y$10$x51U/rKqMmCogChB4wm8WOaJriNiNyz9mzLQ5SJwtL0J2xgzvCXQS
+34534535P,Ana,Vega De León,voter,Estudiante,$2y$10$QrnIfE.oTTLKZiaqWpUwIuWHexMpX53oBtyB/F2HHF.hPZGbOdlRS
+34565643D,Víctor,Rodríguez Fuentes,inspector,Estudiante,$2y$10$Y5xF.BxTfxpdpR7ulOKV9Og81/GdtAxq7Ccm..a7KsuM/6Ppd82YG
+23986799N,Elena,Suárez Costa,voter,Profesor,$2y$10$AxmY/NIXd/xslZ0VSU3nEOiCek5a4s26xmpgmb/w3kjAS6ELGWrya
+12432434Z,Marc,Roig Montes,voter,Profesor,$2y$10$50G3UxBpKmzidVWSDPyH4eqiCFxnGG6gTN56agTyAUoLIuxBjVgAi
+19875123D,María de la O,Núñez Almirante,inspector,Profesor,$2y$10$czUmhK22tSsthXVHUh7GC.leviTq0tjuyQS2VLEOlsOfawUSfbsK.
+45654645S,Francisco,Padrón Ramírez,commitee,Profesor,$2y$10$0woPhP/oMjbiIErjJPN.2ef7ER9zr8O64acgQHdItRzWRveE1sbWK
+34453465A,Isabel,Del Pino Álvarez,commitee,PAS,$2y$10$tHg3i1yiVgTXbJOIesc19eRtjorVAXv9GicOmhvCRAI7L7.XMUDiu
+26784234R,Jesús Miguel,Perales Lozano,voter,PAS,$2y$10$ttcdw7oAZ35fBdOyvxMZN.1dqBw3tEpKQmmxPgEFYY84aloe416am
+56345345Q,Lucas,Reyes de Castilla,voter,PAS,$2y$10$yHqLRr1VP3YnEuAnQLhbOO2NcUlY8LrUrtPzUnqXdto7LqYn58b9.
+43454543D,Leonor,Pérez Rodríguez,inspector,PAS,$2y$10$HjwAuKDYDFpr1XIbOFufXujF7n/WzoLhBJ.c4QSDzne7XlZ9hVq9y
