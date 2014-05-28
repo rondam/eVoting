@@ -1,5 +1,6 @@
 
 <?php
+require('constants.php');
 require_once('DatabaseHandler.php');
 
 $dbHandler = new DatabaseHandler();
@@ -10,7 +11,8 @@ $dbHandler = new DatabaseHandler();
         
          if ($row > 1){
             //INsertamos eleccion
-            $dbHandler->newElection(utf8_encode($data[0]),utf8_encode($data[1]));  
+            $dbHandler->newElection(utf8_encode($data[0]),utf8_encode($data[1]));
+            $dbHandler->setCurrentElection('09:00', '20:00', [], true);
          }
       $row++;
       }

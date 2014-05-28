@@ -16,10 +16,12 @@
 			elseif ($voter['role'] == 'commitee') echo 'miembro de Junta Electoral';
 			echo '</p>';
 			echo '<p><b>Estamento:</b> ' . $stratumName . '</p>';
-			if ($voter['hasVoted'] == true) {
-				echo '<p>Usted ya ha votado.</p>';
-			} else {
-				echo '<h3><a href="vote.php">Votar</a></h3>';
+			if ($currentElection) {
+				if ($voter['hasVoted'] == true) {
+					echo '<p>Usted ya ha votado.</p>';
+				} else {
+					echo '<h3><a href="vote.php">Votar</a></h3>';
+				}
 			}
 		}
 	?>

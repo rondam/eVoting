@@ -32,10 +32,18 @@
 					. $stratum['name'] . '</label> ';
 				echo '<input type="number" name="stratum' . $stratum['id'] . '" maxlength="2" value="';
 				echo isset($current['chosen'][$stratum['id']]) ? $current['chosen'][$stratum['id']] : 0;
-				echo '"><br><br>';
+				echo '"> (0: ilimitados)<br><br>';
 			}
 		?>
+		<input type="checkbox" name="blankBallots" <?php
+			if($current['blankBallots'] == 1) {
+				echo 'checked="checked"';
+			}
+		?>>
+		<label for="blankBallots">Permitir votos en blanco</label>
+		<br><br>
 		<input type="submit">
 	</form>
+	<a href="census.php">Volver</a>
 </body>
 </html>

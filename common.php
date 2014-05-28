@@ -1,8 +1,6 @@
 <?php
 
-define('CURRENT_ELECTION', 1);
-define('PRESIDENT', '44738593M');
-
+require('constants.php');
 require('DatabaseHandler.php');
 
 $dbHandler = new DatabaseHandler();

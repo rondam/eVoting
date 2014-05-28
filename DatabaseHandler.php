@@ -157,17 +157,19 @@ class DatabaseHandler {
 	function getCurrentElection() {
 		$res = $this->db->query('SELECT * FROM currentElection');
 		$row = $res->fetch_assoc();
-		$chosen = explode(',', $row['chosen']);
 		$strata = array();
-		foreach ($chosen as $pair) {
-			$temp = explode(':', $pair);
-			$strata[$temp[0]] = $temp[1];
+		if (isset($row['chosen']) && $row['chosen']) {
+			$chosen = explode(',', $row['chosen']);
+			foreach ($chosen as $pair) {
+				$temp = explode(':', $pair);
+				$strata[$temp[0]] = $temp[1];
+			}
 		}
 		$row['chosen'] = $strata;
 		return $row;
 	}
 	
-	function setCurrentElection($start, $end, $strata) {
+	function setCurrentElection($start, $end, $strata, $blankBallots) {
 		$election = $this->getElection(CURRENT_ELECTION);
 		if ($election == null) {
 			return false;
@@ -184,9 +186,9 @@ class DatabaseHandler {
 		if (!$this->db->query('DELETE FROM currentElection')) {
 			die('Failed to remove current election');
 		}
-		$query = 'INSERT INTO currentElection(forceUnique, electionId, start, end, chosen) ' .
+		$query = 'INSERT INTO currentElection(forceUnique, electionId, start, end, chosen, blankBallots) ' .
 				'VALUES("id", ' . CURRENT_ELECTION . ', "' . $startDate .
-				'",  "' . $endDate . '", "' . $stratumPeople . '")';
+				'",  "' . $endDate . '", "' . $stratumPeople . '", ' . ($blankBallots ? '1' : '0') . ')';
 		if (!$this->db->query($query)) {
 			die('Failed to modify current election: (' . $this->db->errno . ") " . $this->db->error);
 		}

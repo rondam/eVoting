@@ -18,7 +18,8 @@ if (isset($_POST['start']))
 		filter_var($_POST['stratum' . $stratum['id']],
 				FILTER_SANITIZE_SPECIAL_CHARS);
 	}
-	$dbHandler->setCurrentElection($start, $end, $chosen);
+	$blankBallots = isset($_POST['blankBallots']);
+	$dbHandler->setCurrentElection($start, $end, $chosen, $blankBallots);
 	$saved = true;
 }
 
