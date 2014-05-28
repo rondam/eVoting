@@ -1,21 +1,13 @@
 <?php
 
-if (!isset($_SESSION)) {
-	session_start();
-}
-if (!isset($dni) && !isset($_SESSION['dni'])) {
+if (!isset($dni) && !isset($_GET['dni'])) {
 	die();
 }
 
 if (!isset($dni)) {
-	$dni = $_SESSION['dni'];
-	$person = $dbHandler->getPerson($dni);
-	if ($person == null || $_SESSION['password'] !== $person['password']) {
-		die();
-	}
-} else {
-	$person = $dbHandler->getPerson($dni);
-	if ($person == null) {
-		die();
-	}
+	$dni = filter_var($_GET['dni'], FILTER_SANITIZE_SPECIAL_CHARS);
+}
+$person = $dbHandler->getPerson($dni);
+if ($person == null) {
+	die();
 }
