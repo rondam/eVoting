@@ -6,7 +6,7 @@ if ($afterElection) {
 	$election = $dbHandler->getElection ( CURRENT_ELECTION );
 	$voter = $dbHandler->getVoter ( $person ['id'], CURRENT_ELECTION );
 	
-	if ($election == null ) {
+	if ($election == null || $voter ['role'] !== 'commitee') {
 		die();
 	} else {
 		$strata = $dbHandler->getStrata ();

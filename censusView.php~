@@ -29,7 +29,7 @@
 		if ($currentElection || $afterElection) {
 			echo '<p><a href="participation.php">Ver participación</a></p>';
 		}
-		if ($afterElection) {
+		if ($afterElection && ($voter['role'] === 'commitee' || $dni === PRESIDENT)) {
 			echo '<p><a href="results.php">Ver resultados</a></p>';
 		}
 		if ($dni === PRESIDENT) {
